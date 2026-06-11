@@ -47,8 +47,30 @@ charactersRoute.post('/', async (c) => {
 
   return c.json(
     {
-      status: 'success',      data: newCharacter,
+      status: 'Pendaftaran berhasil',
+      data: newCharacter,
     },
     201 // HTTP 201 Created
   );
 });
+// tamnbahkan endpoint delete. 
+
+charactersRoute.delete("/:id", (c) => {
+  const id = c.req.param("id")
+  const cIdx = characters.findIndex((inx) => inx.id === id)
+
+  if(!cIdx){
+    return c.json({
+      status:"sukses",
+      message:"id tidak ditemukan"
+    }, 
+    404)
+  }
+
+ characters.splice(cIdx,1)
+  return c.json({
+    status:"success",
+    message:"data berhasil di hapus"
+  },
+  201)
+})

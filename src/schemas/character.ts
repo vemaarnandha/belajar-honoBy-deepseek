@@ -1,8 +1,10 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 export const createCharacterSchema = z.object({
-  name: z.string().min(2, 'Nama minimal 2 karakter'),
-  class: z.enum(['Warrior', 'Mage', 'Rogue']),
+  name: z.string().min(2, "Nama minimal 2 karakter"),
+  class: z.enum(["Warrior", "Mage", "Rogue"], {
+    message: "Kelas tidak tersedia",
+  }),
 });
 
 // Type dari schema (biar bisa dipakai di route)
