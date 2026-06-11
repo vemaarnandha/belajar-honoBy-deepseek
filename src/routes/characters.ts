@@ -56,10 +56,11 @@ charactersRoute.post('/', async (c) => {
 // tamnbahkan endpoint delete. 
 
 charactersRoute.delete("/:id", (c) => {
-  const id = c.req.param("id")
-  const cIdx = characters.findIndex((inx) => inx.id === id)
+  const id = c.req.param("id") 
+  // kenapa (inx) parameter bisa di isi apapun. misal parameter aku kasih nama (anjing) kalau mau makai =a> anjing.id
+  const cIndex = characters.findIndex((inx) => inx.id === id)
 
-  if(!cIdx){
+  if(!cIndex){
     return c.json({
       status:"sukses",
       message:"id tidak ditemukan"
@@ -67,7 +68,7 @@ charactersRoute.delete("/:id", (c) => {
     404)
   }
 
- characters.splice(cIdx,1)
+ characters.splice(cIndex,1)
   return c.json({
     status:"success",
     message:"data berhasil di hapus"
