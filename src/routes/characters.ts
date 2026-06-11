@@ -36,7 +36,7 @@ charactersRoute.post('/', async (c) => {
 
   // Data sudah valid, buat karakter baru
   const newCharacter: Character = {
-    id: crypto.randomUUID(), // ID unik otomatis
+    id: characters.length > 0 ? characters.length + 1: 1,
     name: result.data.name,
     class: result.data.class,
     level: 1,
@@ -56,11 +56,11 @@ charactersRoute.post('/', async (c) => {
 // tamnbahkan endpoint delete. 
 
 charactersRoute.delete("/:id", (c) => {
-  const id = c.req.param("id") 
+  const id = parseInt(c.req.param("id"))
   // kenapa (inx) parameter bisa di isi apapun. misal parameter aku kasih nama (anjing) kalau mau makai =a> anjing.id
   const cIndex = characters.findIndex((inx) => inx.id === id)
 
-  if(!cIndex){
+  if(cIndex === -1){
     return c.json({
       status:"sukses",
       message:"id tidak ditemukan"
@@ -73,5 +73,5 @@ charactersRoute.delete("/:id", (c) => {
     status:"success",
     message:"data berhasil di hapus"
   },
-  201)
+  200)
 })
